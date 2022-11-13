@@ -1,0 +1,32 @@
+version: "3"
+
+services:
+
+  haproxy:
+    build: ./haproxy
+    ports:
+      - "80:80"
+
+  apache1:
+    build: ./apache/apache1
+    hostname: apache1
+    expose:
+      - "80"
+
+  apache2:
+    build: ./apache/apache2
+    hostname: apache2
+    expose:
+      - "80"
+
+  db:
+    container_name: db
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: bolson
+      MYSQL_DATABASE: example
+      MYSQL_USER: frodo
+      MYSQL_PASSWORD: bolson
+    ports:
+      - "3306:3306"
