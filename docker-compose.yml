@@ -6,18 +6,25 @@ services:
     build: ./haproxy
     ports:
       - "80:80"
+    depends_on:
+      - apache1
+      - apache2
 
   apache1:
     build: ./apache/apache1
     hostname: apache1
     expose:
       - "80"
+    depends_on:
+      - db
 
   apache2:
     build: ./apache/apache2
     hostname: apache2
     expose:
       - "80"
+    depends_on:
+      - db
 
   db:
     container_name: db
