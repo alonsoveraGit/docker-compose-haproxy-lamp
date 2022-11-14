@@ -1,5 +1,9 @@
 version: "3"
 
+volumes:
+  web:
+
+
 services:
 
   haproxy:
@@ -10,21 +14,26 @@ services:
       - apache1
       - apache2
 
+
   apache1:
-    build: ./apache/apache1
+    build: ./apache/
     hostname: apache1
     expose:
       - "80"
     depends_on:
       - db
+    volumes:
+      - web
 
   apache2:
-    build: ./apache/apache2
+    build: ./apache/
     hostname: apache2
     expose:
       - "80"
     depends_on:
       - db
+    volumes:
+      - web
 
   db:
     container_name: db
